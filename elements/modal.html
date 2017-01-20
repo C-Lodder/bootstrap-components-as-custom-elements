@@ -1,0 +1,81 @@
+<element name="bsasce-alert">
+	<script>
+		(function () {
+
+			var ElementPrototype = Object.create(HTMLElement.prototype);
+
+			// Lifecycle methods
+			ElementPrototype.createdCallback = function () {
+
+			};
+
+			ElementPrototype.attachedCallback = function () {
+				var modal = this.querySelector('.modal');
+				triggerBtn = document.querySelector("button[data-target=\"#" + modal.id + "\"]");
+				triggerBtn.addEventListener('click', function() {
+					modal.classList.add('in');
+					modal.classList.remove('fade');
+					modal.style.display = 'block';
+				})
+
+				// Is there a close button?
+				var modalButton = modal.querySelectorAll('button');
+
+				for (var i = 0, l = modalButton.length; i < l; i++) {
+					if (modalButton[i].getAttribute('data-dismiss') === 'modal' || modalButton[i].parentNode.classList.contains('modal-footer')) {
+						// close
+						modalButton[i].addEventListener('click', function(event) {
+							modal.classList.add('fade');
+							modal.classList.remove('in');
+							modal.style.display = 'none';
+						})
+					}
+				}
+			};
+
+			ElementPrototype.detachedCallback = function () {
+
+			};
+
+			ElementPrototype.attributeChangedCallback = function (attr, oldVal, newVal) {
+				if (attr in attrs) {
+					attrs[attr].call(this, oldVal, newVal);
+				}
+			};
+
+			// Custom methods
+
+			ElementPrototype.foo = function () {
+
+			};
+
+			// Attribute handlers
+
+			var attrs = {
+				'attr': function (oldVal, newVal) {
+
+				}
+			};
+
+			// Property handlers
+
+			Object.defineProperties(ElementPrototype, {
+				'prop': {
+					get : function () {
+
+					},
+					set : function (newVal) {
+
+					}
+				}
+			});
+
+			// Register the element
+
+			window.CustomElement = document.registerElement('bsasce-modal', {
+				prototype: ElementPrototype
+			});
+
+		})();
+	</script>
+</element>
